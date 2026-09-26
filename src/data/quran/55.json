@@ -1,0 +1,473 @@
+{
+ "surah": 55,
+ "ayahs": [
+  {
+   "k": "55:1",
+   "u": " ٱلرَّحْمَـٰنُ",
+   "e": "The Most Merciful",
+   "t": "Arrahman"
+  },
+  {
+   "k": "55:2",
+   "u": "عَلَّمَ ٱلْقُرْءَانَ",
+   "e": "Taught the Qur’ān,",
+   "t": "AAallama alqur-an"
+  },
+  {
+   "k": "55:3",
+   "u": "خَلَقَ ٱلْإِنسَـٰنَ",
+   "e": "Created man,",
+   "t": "Khalaqa al-insan"
+  },
+  {
+   "k": "55:4",
+   "u": "عَلَّمَهُ ٱلْبَيَانَ",
+   "e": "[And] taught him eloquence.",
+   "t": "AAallamahu albayan"
+  },
+  {
+   "k": "55:5",
+   "u": "ٱلشَّمْسُ وَٱلْقَمَرُ بِحُسْبَانٍ",
+   "e": "The sun and the moon [move] by precise calculation,",
+   "t": "Ashshamsu walqamaru bihusban"
+  },
+  {
+   "k": "55:6",
+   "u": "وَٱلنَّجْمُ وَٱلشَّجَرُ يَسْجُدَانِ",
+   "e": "And the stars and trees prostrate.",
+   "t": "Wannajmu washshajaru yasjudan"
+  },
+  {
+   "k": "55:7",
+   "u": "وَٱلسَّمَآءَ رَفَعَهَا وَوَضَعَ ٱلْمِيزَانَ",
+   "e": "And the heaven He raised and imposed the balance",
+   "t": "Wassamaa rafaAAahawawadaAAa almeezan"
+  },
+  {
+   "k": "55:8",
+   "u": "أَلَّا تَطْغَوْا۟ فِى ٱلْمِيزَانِ",
+   "e": "That you not transgress within the balance.",
+   "t": "Alla tatghaw fee almeezan"
+  },
+  {
+   "k": "55:9",
+   "u": "وَأَقِيمُوا۟ ٱلْوَزْنَ بِٱلْقِسْطِ وَلَا تُخْسِرُوا۟ ٱلْمِيزَانَ",
+   "e": "And establish weight in justice and do not make deficient the balance.",
+   "t": "Waaqeemoo alwazna bilqisti walatukhsiroo almeezan"
+  },
+  {
+   "k": "55:10",
+   "u": "وَٱلْأَرْضَ وَضَعَهَا لِلْأَنَامِ",
+   "e": "And the earth He laid [out] for the creatures.",
+   "t": "Wal-arda wadaAAahalil-anam"
+  },
+  {
+   "k": "55:11",
+   "u": "فِيهَا فَـٰكِهَةٌ وَٱلنَّخْلُ ذَاتُ ٱلْأَكْمَامِ",
+   "e": "Therein is fruit and palm trees having sheaths [of dates]",
+   "t": "Feeha fakihatun wannakhluthatu al-akmam"
+  },
+  {
+   "k": "55:12",
+   "u": "وَٱلْحَبُّ ذُو ٱلْعَصْفِ وَٱلرَّيْحَانُ",
+   "e": "And grain having husks and scented plants.",
+   "t": "Walhabbu thoo alAAasfiwarrayhan"
+  },
+  {
+   "k": "55:13",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?1",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:14",
+   "u": "خَلَقَ ٱلْإِنسَـٰنَ مِن صَلْصَـٰلٍ كَٱلْفَخَّارِ",
+   "e": "He created man from clay like [that of] pottery.",
+   "t": "Khalaqa al-insana min salsalinkalfakhkhar"
+  },
+  {
+   "k": "55:15",
+   "u": "وَخَلَقَ ٱلْجَآنَّ مِن مَّارِجٍ مِّن نَّارٍ",
+   "e": "And He created the jinn from a smokeless flame of fire.",
+   "t": "Wakhalaqa aljanna min marijinmin nar"
+  },
+  {
+   "k": "55:16",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:17",
+   "u": "رَبُّ ٱلْمَشْرِقَيْنِ وَرَبُّ ٱلْمَغْرِبَيْنِ",
+   "e": "[He is] Lord of the two sunrises and Lord of the two sunsets.",
+   "t": "Rabbu almashriqayni warabbu almaghribayn"
+  },
+  {
+   "k": "55:18",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:19",
+   "u": "مَرَجَ ٱلْبَحْرَيْنِ يَلْتَقِيَانِ",
+   "e": "He released the two seas, meeting [one another];",
+   "t": "Maraja albahrayni yaltaqiyan"
+  },
+  {
+   "k": "55:20",
+   "u": "بَيْنَهُمَا بَرْزَخٌ لَّا يَبْغِيَانِ",
+   "e": "Between them is a barrier so neither of them transgresses.",
+   "t": "Baynahuma barzakhun la yabghiyan"
+  },
+  {
+   "k": "55:21",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:22",
+   "u": "يَخْرُجُ مِنْهُمَا ٱللُّؤْلُؤُ وَٱلْمَرْجَانُ",
+   "e": "From both of them emerge pearl and coral.",
+   "t": "Yakhruju minhuma allu/luo walmarjan"
+  },
+  {
+   "k": "55:23",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththibani"
+  },
+  {
+   "k": "55:24",
+   "u": "وَلَهُ ٱلْجَوَارِ ٱلْمُنشَـَٔاتُ فِى ٱلْبَحْرِ كَٱلْأَعْلَـٰمِ",
+   "e": "And to Him belong the ships [with sails] elevated in the sea like mountains.",
+   "t": "Walahu aljawari almunshaatufee albahri kal-aAAlam"
+  },
+  {
+   "k": "55:25",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:26",
+   "u": "كُلُّ مَنْ عَلَيْهَا فَانٍ",
+   "e": "Everyone upon it [i.e., the earth] will perish,",
+   "t": "Kullu man AAalayha fan"
+  },
+  {
+   "k": "55:27",
+   "u": "وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ",
+   "e": "And there will remain the Face of your Lord, Owner of Majesty and Honor.",
+   "t": "Wayabqa wajhu rabbika thooaljalali wal-ikram"
+  },
+  {
+   "k": "55:28",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:29",
+   "u": "يَسْـَٔلُهُۥ مَن فِى ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ ۚ كُلَّ يَوْمٍ هُوَ فِى شَأْنٍ",
+   "e": "Whoever is within the heavens and earth asks Him; every day He is in [i.e., bringing about] a matter.",
+   "t": "Yas-aluhu man fee assamawatiwal-ardi kulla yawmin huwa fee sha/n"
+  },
+  {
+   "k": "55:30",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:31",
+   "u": "سَنَفْرُغُ لَكُمْ أَيُّهَ ٱلثَّقَلَانِ",
+   "e": "We will attend to you, O prominent beings.",
+   "t": "Sanafrughu lakum ayyuha aththaqalan"
+  },
+  {
+   "k": "55:32",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:33",
+   "u": "يَـٰمَعْشَرَ ٱلْجِنِّ وَٱلْإِنسِ إِنِ ٱسْتَطَعْتُمْ أَن تَنفُذُوا۟ مِنْ أَقْطَارِ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضِ فَٱنفُذُوا۟ ۚ لَا تَنفُذُونَ إِلَّا بِسُلْطَـٰنٍ",
+   "e": "O company of jinn and mankind, if you are able to pass beyond the regions of the heavens and the earth, then pass. You will not pass except by authority [from Allāh].",
+   "t": "Ya maAAshara aljinni wal-insiini istataAAtum an tanfuthoo min aqtari assamawatiwal-ardi fanfuthoo la tanfuthoonailla bisultan"
+  },
+  {
+   "k": "55:34",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:35",
+   "u": "يُرْسَلُ عَلَيْكُمَا شُوَاظٌ مِّن نَّارٍ وَنُحَاسٌ فَلَا تَنتَصِرَانِ",
+   "e": "There will be sent upon you a flame of fire and smoke, and you will not defend yourselves.",
+   "t": "Yursalu AAalaykuma shuwathunmin narin wanuhasun fala tantasiran"
+  },
+  {
+   "k": "55:36",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:37",
+   "u": "فَإِذَا ٱنشَقَّتِ ٱلسَّمَآءُ فَكَانَتْ وَرْدَةً كَٱلدِّهَانِ",
+   "e": "And when the heaven is split open and becomes rose-colored like oil -",
+   "t": "Fa-itha inshaqqati assamaofakanat wardatan kaddihan"
+  },
+  {
+   "k": "55:38",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:39",
+   "u": "فَيَوْمَئِذٍ لَّا يُسْـَٔلُ عَن ذَنۢبِهِۦٓ إِنسٌ وَلَا جَآنٌّ",
+   "e": "Then on that Day none will be asked about his sin among men or jinn.",
+   "t": "Fayawma-ithin la yus-alu AAan thanbihiinsun wala jan"
+  },
+  {
+   "k": "55:40",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:41",
+   "u": "يُعْرَفُ ٱلْمُجْرِمُونَ بِسِيمَـٰهُمْ فَيُؤْخَذُ بِٱلنَّوَٰصِى وَٱلْأَقْدَامِ",
+   "e": "The criminals will be known by their marks, and they will be seized by the forelocks and the feet.",
+   "t": "YuAArafu almujrimoona biseemahumfayu/khathu binnawasee wal-aqdam"
+  },
+  {
+   "k": "55:42",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:43",
+   "u": "هَـٰذِهِۦ جَهَنَّمُ ٱلَّتِى يُكَذِّبُ بِهَا ٱلْمُجْرِمُونَ",
+   "e": "This is Hell, which the criminals deny.",
+   "t": "Hathihi jahannamu allatee yukaththibubiha almujrimoon"
+  },
+  {
+   "k": "55:44",
+   "u": "يَطُوفُونَ بَيْنَهَا وَبَيْنَ حَمِيمٍ ءَانٍ",
+   "e": "They will circulate between it and scalding water, heated [to the utmost degree].",
+   "t": "Yatoofoona baynaha wabayna hameeminan"
+  },
+  {
+   "k": "55:45",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:46",
+   "u": "وَلِمَنْ خَافَ مَقَامَ رَبِّهِۦ جَنَّتَانِ",
+   "e": "But for he who has feared the position of his Lord are two gardens -",
+   "t": "Waliman khafa maqama rabbihijannatan"
+  },
+  {
+   "k": "55:47",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:48",
+   "u": "ذَوَاتَآ أَفْنَانٍ",
+   "e": "Having [spreading] branches.",
+   "t": "Thawata afnan"
+  },
+  {
+   "k": "55:49",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:50",
+   "u": "فِيهِمَا عَيْنَانِ تَجْرِيَانِ",
+   "e": "In both of them are two springs, flowing.",
+   "t": "Feehima AAaynani tajriyan"
+  },
+  {
+   "k": "55:51",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:52",
+   "u": "فِيهِمَا مِن كُلِّ فَـٰكِهَةٍ زَوْجَانِ",
+   "e": "In both of them are of every fruit, two kinds.",
+   "t": "Feehima min kulli fakihatinzawjan"
+  },
+  {
+   "k": "55:53",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:54",
+   "u": "مُتَّكِـِٔينَ عَلَىٰ فُرُشٍۭ بَطَآئِنُهَا مِنْ إِسْتَبْرَقٍ ۚ وَجَنَى ٱلْجَنَّتَيْنِ دَانٍ",
+   "e": "[They are] reclining on beds whose linings are of silk brocade, and the fruit of the two gardens is hanging low.",
+   "t": "Muttaki-eena AAala furushin bata-inuhamin istabraqin wajana aljannatayni dan"
+  },
+  {
+   "k": "55:55",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:56",
+   "u": "فِيهِنَّ قَـٰصِرَٰتُ ٱلطَّرْفِ لَمْ يَطْمِثْهُنَّ إِنسٌ قَبْلَهُمْ وَلَا جَآنٌّ",
+   "e": "In them are women limiting [their] glances, untouched before them by man or jinnī -",
+   "t": "Feehinna qasiratu attarfilam yatmithhunna insun qablahum wala jan"
+  },
+  {
+   "k": "55:57",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:58",
+   "u": "كَأَنَّهُنَّ ٱلْيَاقُوتُ وَٱلْمَرْجَانُ",
+   "e": "As if they were rubies and coral.",
+   "t": "Kaannahunna alyaqootu walmarjan"
+  },
+  {
+   "k": "55:59",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:60",
+   "u": "هَلْ جَزَآءُ ٱلْإِحْسَـٰنِ إِلَّا ٱلْإِحْسَـٰنُ",
+   "e": "Is the reward for good [anything] but good?",
+   "t": "Hal jazao al-ihsani illaal-ihsan"
+  },
+  {
+   "k": "55:61",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:62",
+   "u": "وَمِن دُونِهِمَا جَنَّتَانِ",
+   "e": "And below them both [in excellence] are two [other] gardens -",
+   "t": "Wamin doonihima jannatan"
+  },
+  {
+   "k": "55:63",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:64",
+   "u": "مُدْهَآمَّتَانِ",
+   "e": "Dark green [in color].",
+   "t": "Mudhammatan"
+  },
+  {
+   "k": "55:65",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:66",
+   "u": "فِيهِمَا عَيْنَانِ نَضَّاخَتَانِ",
+   "e": "In both of them are two springs, spouting.",
+   "t": "Feehima AAaynani naddakhatan"
+  },
+  {
+   "k": "55:67",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:68",
+   "u": "فِيهِمَا فَـٰكِهَةٌ وَنَخْلٌ وَرُمَّانٌ",
+   "e": "In both of them are fruit and palm trees and pomegranates.",
+   "t": "Feehima fakihatun wanakhlunwarumman"
+  },
+  {
+   "k": "55:69",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:70",
+   "u": "فِيهِنَّ خَيْرَٰتٌ حِسَانٌ",
+   "e": "In them are good and beautiful women -",
+   "t": "Feehinna khayratun hisan"
+  },
+  {
+   "k": "55:71",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:72",
+   "u": "حُورٌ مَّقْصُورَٰتٌ فِى ٱلْخِيَامِ",
+   "e": "Fair ones reserved in pavilions -",
+   "t": "Hoorun maqsooratun feealkhiyam"
+  },
+  {
+   "k": "55:73",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:74",
+   "u": "لَمْ يَطْمِثْهُنَّ إِنسٌ قَبْلَهُمْ وَلَا جَآنٌّ",
+   "e": "Untouched before them by man or jinnī -",
+   "t": "Lam yatmithhunna insun qablahum walajan"
+  },
+  {
+   "k": "55:75",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny? -",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:76",
+   "u": "مُتَّكِـِٔينَ عَلَىٰ رَفْرَفٍ خُضْرٍ وَعَبْقَرِىٍّ حِسَانٍ",
+   "e": "Reclining on green cushions and beautiful fine carpets.",
+   "t": "Muttaki-eena AAala rafrafin khudrinwaAAabqariyyin hisan"
+  },
+  {
+   "k": "55:77",
+   "u": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+   "e": "So which of the favors of your Lord would you deny?",
+   "t": "Fabi-ayyi ala-i rabbikumatukaththiban"
+  },
+  {
+   "k": "55:78",
+   "u": "تَبَـٰرَكَ ٱسْمُ رَبِّكَ ذِى ٱلْجَلَـٰلِ وَٱلْإِكْرَامِ",
+   "e": "Blessed is the name of your Lord, Owner of Majesty and Honor.",
+   "t": "Tabaraka ismu rabbika theealjalali wal-ikram"
+  }
+ ]
+}

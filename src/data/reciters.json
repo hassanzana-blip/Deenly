@@ -1,0 +1,279 @@
+[
+ {
+  "id": "mishary-rashid-alafasy",
+  "name": "Mishary Rashid Alafasy",
+  "arabic": "مشاري راشد العفاسي",
+  "sync": true,
+  "qdc": 7,
+  "prefix": "Alafasy/mp3/",
+  "count": 114,
+  "featured": true,
+  "bio": "Kuwaiti reciter and imam of the Grand Mosque of Kuwait, renowned worldwide for his precise and moving murattal recitation."
+ },
+ {
+  "id": "abdul-rahman-al-sudais",
+  "name": "Abdul Rahman Al-Sudais",
+  "arabic": "عبد الرحمن السديس",
+  "sync": true,
+  "qdc": 3,
+  "prefix": "Sudais/mp3/",
+  "count": 114,
+  "featured": true,
+  "bio": "Imam of the Grand Mosque in Makkah and one of the most widely heard voices of the Holy Quran."
+ },
+ {
+  "id": "saud-al-shuraim",
+  "name": "Saud Al-Shuraim",
+  "arabic": "سعود الشريم",
+  "sync": true,
+  "qdc": 10,
+  "prefix": "Shuraym/mp3/",
+  "count": 114,
+  "featured": false,
+  "bio": "Imam of the Grand Mosque in Makkah, known for his deeply emotional recitation."
+ },
+ {
+  "id": "abu-bakr-al-shatri",
+  "name": "Abu Bakr Al Shatri",
+  "arabic": "أبو بكر الشاطري",
+  "sync": true,
+  "qdc": 4,
+  "prefix": "Shatri/mp3/",
+  "count": 114,
+  "featured": false,
+  "bio": "Saudi reciter famous for his warm and melodious voice."
+ },
+ {
+  "id": "hani-ar-rifai",
+  "name": "Hani Ar-Rifai",
+  "arabic": "هاني الرفاعي",
+  "sync": true,
+  "qdc": 5,
+  "prefix": "Rifai/mp3/",
+  "count": 114,
+  "featured": false,
+  "bio": "Saudi reciter known for his heartfelt and humble recitation style."
+ },
+ {
+  "id": "abdul-basit-abdul-samad",
+  "name": "Abdul Basit Abdul Samad",
+  "arabic": "عبد الباسط عبد الصمد",
+  "sync": true,
+  "qdc": 2,
+  "prefix": "AbdulBaset/Murattal/mp3/",
+  "count": 114,
+  "featured": false,
+  "bio": "Legendary Egyptian reciter, regarded as one of the greatest voices in the history of Quranic recitation."
+ },
+ {
+  "id": "mohamed-siddiq-al-minshawi",
+  "name": "Mohamed Siddiq Al-Minshawi",
+  "arabic": "محمد صديق المنشاوي",
+  "sync": true,
+  "qdc": 9,
+  "prefix": "Minshawi/Murattal/mp3/",
+  "count": 114,
+  "featured": false,
+  "bio": "Egyptian reciter from a renowned family of reciters, beloved for his classical murattal style."
+ },
+ {
+  "id": "maher-al-mueaqly",
+  "name": "Maher Al Mueaqly",
+  "sync": false,
+  "server": "https://server12.mp3quran.net/maher/",
+  "count": 114,
+  "featured": true,
+  "arabic": "ماهر المعيقلي",
+  "bio": "Imam of the Grand Mosque in Makkah, known for his calm and distinctive recitation."
+ },
+ {
+  "id": "saad-el-ghamidi",
+  "name": "Saad El Ghamidi",
+  "sync": false,
+  "server": "https://server7.mp3quran.net/s_gmd/",
+  "count": 114,
+  "featured": true,
+  "arabic": "سعد الغامدي",
+  "bio": "Saudi reciter known for his serene, unhurried style."
+ },
+ {
+  "id": "yasser-al-dosari",
+  "name": "Yasser Al-Dosari",
+  "sync": false,
+  "server": "https://server11.mp3quran.net/yasser/",
+  "count": 114,
+  "featured": true,
+  "arabic": "ياسر الدوسري",
+  "bio": "Saudi reciter and imam known for his warm tone and precise tajweed."
+ },
+ {
+  "id": "islam-sobhi",
+  "name": "Islam Sobhi",
+  "sync": false,
+  "server": "https://server14.mp3quran.net/islam/Rewayat-Hafs-A-n-Assem/",
+  "count": 109,
+  "featured": true,
+  "arabic": "إسلام صبحي",
+  "bio": "Egyptian reciter known for his melodious voice and wide online following."
+ },
+ {
+  "id": "abdullah-al-johany",
+  "name": "Abdullah Al-Johany",
+  "sync": false,
+  "server": "https://server13.mp3quran.net/jhn/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "nabil-al-rifay",
+  "name": "Nabil Al Rifay",
+  "sync": false,
+  "server": "https://server9.mp3quran.net/nabil/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "salman-al-utaybi",
+  "name": "Salman Al Utaybi",
+  "sync": false,
+  "server": "https://server11.mp3quran.net/salman/",
+  "count": 76,
+  "featured": false
+ },
+ {
+  "id": "ahmad-al-nufais",
+  "name": "Ahmad Al Nufais",
+  "sync": false,
+  "server": "https://server16.mp3quran.net/nufais/Rewayat-Hafs-A-n-Assem/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "mukhtar-al-haj",
+  "name": "Mukhtar Al-Haj",
+  "sync": false,
+  "server": "https://server16.mp3quran.net/mukhtar_haj/Rewayat-Hafs-A-n-Assem/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "hazza-al-balushi",
+  "name": "Hazza Al Balushi",
+  "sync": false,
+  "server": "https://server11.mp3quran.net/hazza/",
+  "count": 91,
+  "featured": false
+ },
+ {
+  "id": "noreen-mohamed-siddiq",
+  "name": "Noreen Mohamed Siddiq",
+  "sync": false,
+  "server": "https://server16.mp3quran.net/nourin_siddig/Rewayat-Aldori-A-n-Abi-Amr/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "abdul-bari-ath-thobaity",
+  "name": "Abdul Bari Ath-Thobaity",
+  "sync": false,
+  "server": "https://server6.mp3quran.net/thubti/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "ahmad-al-ajmy",
+  "name": "Ahmad Al-Ajmy",
+  "sync": false,
+  "server": "https://server10.mp3quran.net/ajm/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "abdullah-al-khalaf",
+  "name": "Abdullah Al-Khalaf",
+  "sync": false,
+  "server": "https://server14.mp3quran.net/khalf/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "nasser-al-qatami",
+  "name": "Nasser Al Qatami",
+  "sync": false,
+  "server": "https://server6.mp3quran.net/qtm/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "abdelaziz-sheim",
+  "name": "Abdelaziz Sheim",
+  "sync": false,
+  "server": "https://server16.mp3quran.net/a_sheim/Rewayat-Warsh-A-n-Nafi/",
+  "count": 16,
+  "featured": false
+ },
+ {
+  "id": "salah-al-hashim",
+  "name": "Salah Al Hashim",
+  "sync": false,
+  "server": "https://server12.mp3quran.net/salah_hashim_m/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "salah-al-budair",
+  "name": "Salah Al Budair",
+  "sync": false,
+  "server": "https://server6.mp3quran.net/s_bud/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "abdullah-al-mousa",
+  "name": "Abdullah Al-Mousa",
+  "sync": false,
+  "server": "https://server14.mp3quran.net/mousa/Rewayat-Hafs-A-n-Assem/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "mahmoud-khalil-al-hussary",
+  "name": "Mahmoud Khalil Al-Hussary",
+  "sync": false,
+  "server": "https://server13.mp3quran.net/husr/Rewayat-Qalon-A-n-Nafi/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "mohammad-al-tablaway",
+  "name": "Mohammad Al-Tablaway",
+  "sync": false,
+  "server": "https://server12.mp3quran.net/tblawi/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "mahmoud-ali-al-banna",
+  "name": "Mahmoud Ali Al-Banna",
+  "sync": false,
+  "server": "https://server8.mp3quran.net/bna/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "khaled-al-qahtani",
+  "name": "Khaled Al-Qahtani",
+  "sync": false,
+  "server": "https://server10.mp3quran.net/qht/",
+  "count": 114,
+  "featured": false
+ },
+ {
+  "id": "bandar-balilah",
+  "name": "Bandar Balilah",
+  "sync": false,
+  "server": "https://server6.mp3quran.net/balilah/",
+  "count": 114,
+  "featured": false
+ }
+]
