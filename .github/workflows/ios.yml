@@ -34,7 +34,7 @@ jobs:
         run: npx expo export --platform ios --output-dir /tmp/ios-export
 
   simulator:
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 75
     env:
       APP_NAME: DeenDunya
@@ -46,17 +46,15 @@ jobs:
           node-version: 22
           cache: npm
 
-      # Expo SDK 57's ExpoModulesJSI does not compile with Xcode 26.3's clang
-      # ("cannot be annotated with SWIFT_RETURNS_RETAINED ... not returning a
-      # SWIFT_SHARED_REFERENCE type"), so use the newest stable Xcode below 26.3.
-      - name: Select Xcode
+      # Expo SDK 57 needs Swift 6.3+ (Xcode 26.4+): ExpoModulesJSI annotates C++
+      # constructors with SWIFT_RETURNS_RETAINED, which Swift 6.2 rejects.
+      - name: Select newest stable Xcode
         run: |
           ls -d /Applications/Xcode*.app
-          XCODE=$(ls -d /Applications/Xcode_[0-9]*.app | grep -vi beta \
-            | sed -E 's#.*/Xcode_([0-9.]+)\.app#\1#' | sort -V \
-            | awk -F. '$1 < 26 || ($1 == 26 && $2 < 3)' | tail -1)
-          sudo xcode-select -s "/Applications/Xcode_$XCODE.app/Contents/Developer"
+          XCODE=$(ls -d /Applications/Xcode_[0-9]*.app | grep -vi beta | sort -V | tail -1)
+          sudo xcode-select -s "$XCODE/Contents/Developer"
           xcodebuild -version
+          swift --version
 
       - run: npm ci
 
