@@ -4,6 +4,12 @@
 //            per-ayah chaining from verses.quran.com when the chapter file
 //            cannot load. Drives ayah highlight + autoscroll in the reader.
 //  • file  — mp3quran reciters: single chapter mp3, fully seekable.
+//
+// The engine drives an AudioLike (the subset of HTMLAudioElement it uses). The web
+// build plays through an <audio> element; the iOS app runs this same engine in the
+// native JS runtime on top of expo-audio (native/audioBackend.ts), so playback,
+// ayah chaining and auto-advance keep going with the screen locked. The UI then
+// talks to it through a remote proxy installed with setEngine().
 import { ayahAudioUrl, chapterAudioUrl, getTimings, surah as surahMeta, type Reciter, type Timings } from './data'
 
 export interface PlayerSnapshot {
@@ -23,29 +29,51 @@ export interface PlayerSnapshot {
 
 type Listener = (s: PlayerSnapshot) => void
 
-const initial: PlayerSnapshot = {
+export const INITIAL_SNAPSHOT: PlayerSnapshot = {
   reciter: null, surah: 0, status: 'idle', mode: 'file', transport: 'chapter',
   ayah: 1, elapsed: 0, duration: 0, speed: 1, repeat: 'off', shuffle: false, error: null,
 }
 
-class Engine {
-  private audio = new Audio()
-  private snap: PlayerSnapshot = { ...initial }
+/** The subset of HTMLAudioElement the engine uses. */
+export interface AudioLike {
+  src: string
+  currentTime: number
+  readonly duration: number
+  readonly paused: boolean
+  playbackRate: number
+  play(): Promise<void>
+  pause(): void
+  addEventListener(type: AudioEventType, fn: () => void, opts?: { once?: boolean }): void
+}
+// 'remotepause': paused from outside the app (lock screen, headphones, a phone call).
+// Only the native backend emits it; <audio> never does.
+export type AudioEventType = 'timeupdate' | 'ended' | 'error' | 'playing' | 'waiting' | 'loadedmetadata' | 'remotepause'
+
+export class Engine {
+  private audio: AudioLike
+  private snap: PlayerSnapshot = { ...INITIAL_SNAPSHOT }
   private listeners = new Set<Listener>()
   private timings: Timings | null = null
   private prefix: number[] = [] // cumulative ms at each ayah start
   private loadToken = 0
+  private srcGen = 0 // bumped on every source change, so stale load handlers can tell
   private stallTimer: ReturnType<typeof setTimeout> | undefined
   private armStall(fn: () => void, ms: number) { this.clearStall(); this.stallTimer = setTimeout(fn, ms) }
   private clearStall() { if (this.stallTimer !== undefined) { clearTimeout(this.stallTimer); this.stallTimer = undefined } }
 
-  constructor() {
-    this.audio.preload = 'auto'
+  constructor(audio: AudioLike) {
+    this.audio = audio
     this.audio.addEventListener('timeupdate', () => this.onTime())
     this.audio.addEventListener('ended', () => this.onEnded())
     this.audio.addEventListener('error', () => this.onError())
     this.audio.addEventListener('playing', () => this.set({ status: 'playing' }))
     this.audio.addEventListener('waiting', () => { if (this.snap.status === 'playing') this.set({}) })
+    this.audio.addEventListener('remotepause', () => { if (this.snap.status === 'playing') this.set({ status: 'paused' }) })
+  }
+
+  private setSrc(url: string): number {
+    this.audio.src = url
+    return ++this.srcGen
   }
 
   subscribe = (l: Listener) => { this.listeners.add(l); l(this.snap); return () => { this.listeners.delete(l) } }
@@ -102,10 +130,11 @@ class Engine {
         // preferred: single chapter file with native seeking
         if (this.timings.url) {
           this.set({ transport: 'chapter' })
-          this.audio.src = this.timings.url
+          const gen = this.setSrc(this.timings.url)
           this.audio.playbackRate = this.snap.speed
           const startMs = this.prefix[Math.max(0, startAyah - 1)] ?? 0
           const onMeta = () => {
+            if (gen !== this.srcGen) return // source changed (e.g. stall fallback) before it loaded
             this.clearStall()
             this.audio.currentTime = startMs / 1000
             if (autoplay) this.audio.play().catch(() => {})
@@ -134,7 +163,7 @@ class Engine {
     // file mode
     this.timings = null
     this.set({ transport: 'chapter' })
-    this.audio.src = chapterAudioUrl(reciter, surahN)
+    this.setSrc(chapterAudioUrl(reciter, surahN))
     this.audio.playbackRate = this.snap.speed
     if (autoplay) this.audio.play().catch(() => this.set({ status: 'paused', error: 'Tap play to start' }))
     else this.set({ status: 'paused' })
@@ -147,9 +176,10 @@ class Engine {
     if (i < 0) i = 0
     if (i >= count) { this.onEnded(); return }
     this.set({ ayah: i + 1 })
-    this.audio.src = ayahAudioUrl(r, this.snap.surah, i + 1)
+    const gen = this.setSrc(ayahAudioUrl(r, this.snap.surah, i + 1))
     this.audio.playbackRate = this.snap.speed
     const onMeta = () => {
+      if (gen !== this.srcGen) return
       this.clearStall()
       if (offsetSec > 0.2) this.audio.currentTime = offsetSec
       if (autoplay) this.audio.play().catch(() => {})
@@ -228,6 +258,11 @@ class Engine {
     this.set({ status: 'paused', error: 'Audio unavailable' })
   }
 
+  pause() {
+    if (!this.snap.reciter || this.audio.paused) return
+    this.audio.pause(); this.set({ status: 'paused' })
+  }
+
   toggle() {
     const s = this.snap
     if (!s.reciter) return
@@ -280,5 +315,38 @@ class Engine {
   }
 }
 
-export const engine = new Engine()
-;(window as any).__dd = engine
+export type EngineApi = Pick<Engine,
+  'subscribe' | 'getSnapshot' | 'play' | 'pause' | 'toggle' | 'next' | 'prev' | 'seek' | 'skip' |
+  'setSpeed' | 'setRepeat' | 'setShuffle' | 'playAyahDirect'>
+
+/** Engine methods the UI may invoke remotely (everything except subscribe/getSnapshot). */
+export type EngineCommand = Exclude<keyof EngineApi, 'subscribe' | 'getSnapshot'>
+
+let impl: EngineApi | null = null
+function current(): EngineApi {
+  if (!impl) {
+    const el = new Audio()
+    el.preload = 'auto'
+    impl = new Engine(el)
+  }
+  return impl
+}
+
+/** Replaces the engine the UI talks to (the iOS app installs a proxy to the native engine). */
+export function setEngine(e: EngineApi) { impl = e }
+
+export const engine: EngineApi = {
+  subscribe: l => current().subscribe(l),
+  getSnapshot: () => current().getSnapshot(),
+  play: (...a) => current().play(...a),
+  pause: () => current().pause(),
+  toggle: () => current().toggle(),
+  next: () => current().next(),
+  prev: () => current().prev(),
+  seek: v => current().seek(v),
+  skip: d => current().skip(d),
+  setSpeed: v => current().setSpeed(v),
+  setRepeat: r => current().setRepeat(r),
+  setShuffle: b => current().setShuffle(b),
+  playAyahDirect: n => current().playAyahDirect(n),
+}

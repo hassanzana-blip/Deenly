@@ -3,17 +3,18 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, Clock3, MoreHorizontal, Play, User } from 'lucide-react'
 import { AMBIENTS, RECITERS, type AmbientId } from '../lib/data'
+import { IMG } from '../lib/images'
 import { useStore } from '../store'
 import { PlayerCard } from '../components/PlayerCard'
 import { SectionHeader } from '../components/bits'
 import { engine } from '../lib/audio'
 
 const STORIES = [
-  { id: 'lantern', title: 'The Lantern of Little Deeds', narrator: 'Yassine El-Fassi', dur: '7:19', img: '/img/lantern.png', date: '16 FEBRUARY', surah: 67, reciter: 'mahmoud-khalil-al-hussary' },
-  { id: 'ramadan', title: 'Ramadan Nights', narrator: 'Zaidan Al-Amin', dur: '9:42', img: '/img/waves.png', date: '15 FEBRUARY', surah: 55, reciter: 'saad-el-ghamidi' },
-  { id: 'rain', title: 'Rain over the Valley', narrator: 'Maryam Haddad', dur: '12:05', img: '/img/rain.png', date: '12 FEBRUARY', surah: 36, reciter: 'islam-sobhi' },
-  { id: 'fire', title: 'By the Fireplace', narrator: 'Omar Farouk', dur: '10:31', img: '/img/fire.png', date: '8 FEBRUARY', surah: 18, reciter: 'maher-al-mueaqly' },
-  { id: 'birds', title: 'Morning Birds', narrator: 'Layla Nour', dur: '8:44', img: '/img/birds.png', date: '2 FEBRUARY', surah: 13, reciter: 'mishary-rashid-alafasy' },
+  { id: 'lantern', title: 'The Lantern of Little Deeds', narrator: 'Yassine El-Fassi', dur: '7:19', img: IMG.lantern, date: '16 FEBRUARY', surah: 67, reciter: 'mahmoud-khalil-al-hussary' },
+  { id: 'ramadan', title: 'Ramadan Nights', narrator: 'Zaidan Al-Amin', dur: '9:42', img: IMG.waves, date: '15 FEBRUARY', surah: 55, reciter: 'saad-el-ghamidi' },
+  { id: 'rain', title: 'Rain over the Valley', narrator: 'Maryam Haddad', dur: '12:05', img: IMG.rain, date: '12 FEBRUARY', surah: 36, reciter: 'islam-sobhi' },
+  { id: 'fire', title: 'By the Fireplace', narrator: 'Omar Farouk', dur: '10:31', img: IMG.fire, date: '8 FEBRUARY', surah: 18, reciter: 'maher-al-mueaqly' },
+  { id: 'birds', title: 'Morning Birds', narrator: 'Layla Nour', dur: '8:44', img: IMG.birds, date: '2 FEBRUARY', surah: 13, reciter: 'mishary-rashid-alafasy' },
 ]
 
 export default function SleepScreen() {
@@ -128,7 +129,7 @@ export function AmbientOverlay() {
           </div>
 
           {/* frosted player */}
-          <div className="absolute inset-x-3 bottom-[max(14px,env(safe-area-inset-bottom))] z-10">
+          <div className="absolute inset-x-3 bottom-[max(14px,var(--sab))] z-10">
             {st.player.reciter ? <PlayerCard dark compact /> : (
               <div className="glass-dark rounded-[30px] p-6 text-center text-white">
                 <Clock3 size={22} className="mx-auto mb-2 opacity-80" />

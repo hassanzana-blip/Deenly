@@ -1,12 +1,21 @@
 // ─── persistent chrome: status bar, tab bar, mini player ────────────────────
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { BookOpen, CalendarDays, Home, MoonStar, Pause, Play, Search, SkipForward } from 'lucide-react'
+import { BookOpen, CalendarDays, Home, MoonStar, Pause, Play, Search, SkipForward, type LucideIcon } from 'lucide-react'
 import { useStore, type Tab } from '../store'
 import { Avatar, EqBars } from './bits'
 import { fmtTime, surah } from '../lib/data'
+import { platform } from '../lib/platform'
 
-export function StatusBar() {
+export function StatusBar({ nested = false }: { nested?: boolean }) {
+  // In the iOS app the real status bar sits above us: the top-level bar just reserves
+  // its height, and a nested one (pushed screens) keeps the mock bar's spacing.
+  if (platform.native) return <div className="relative z-30 shrink-0" style={{ height: nested ? 36 : 'var(--sat)' }} />
+  return <MockStatusBar />
+}
+
+// phone-mockup status bar for the web preview
+function MockStatusBar() {
   const [time, setTime] = useState('')
   useEffect(() => {
     const f = () => setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }))
@@ -25,7 +34,7 @@ export function StatusBar() {
   )
 }
 
-const TABS: { id: Tab; icon: any }[] = [
+const TABS: { id: Tab; icon: LucideIcon }[] = [
   { id: 'main', icon: Home },
   { id: 'today', icon: CalendarDays },
   { id: 'read', icon: BookOpen },
@@ -37,7 +46,7 @@ export function TabBar() {
   const { nav, setTab, t } = useStore()
   return (
     <div className="relative z-30 dd-surface border-t dd-line">
-      <div className="flex items-stretch justify-around px-2 pt-1.5 pb-[max(10px,env(safe-area-inset-bottom))]">
+      <div className="flex items-stretch justify-around px-2 pt-1.5 pb-[max(10px,var(--sab))]">
         {TABS.map(({ id, icon: Icon }) => {
           const active = nav.tab === id
           return (
@@ -63,7 +72,7 @@ export function MiniPlayer() {
   return (
     <motion.div
       initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-      className="absolute inset-x-3 bottom-[calc(68px+env(safe-area-inset-bottom))] z-30"
+      className="absolute inset-x-3 bottom-[calc(68px+var(--sab))] z-30"
     >
       <div
         onClick={() => { if (!inReader) push({ t: 'reader', surah: s }) }}

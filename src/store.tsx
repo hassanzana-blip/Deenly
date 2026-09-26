@@ -2,6 +2,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { engine, type PlayerSnapshot } from './lib/audio'
 import { reciterById, type AmbientId, type Reciter } from './lib/data'
+import { platform } from './lib/platform'
 
 export type Tab = 'main' | 'today' | 'read' | 'sleep' | 'search'
 export type Push =
@@ -50,18 +51,22 @@ interface Store {
   rtl: boolean
 }
 
-const Ctx = createContext<Store>(null as any)
+const Ctx = createContext<Store>(null as unknown as Store)
 export const useStore = () => useContext(Ctx)
 
 function load<T>(key: string, fallback: T): T {
   try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback } catch { return fallback }
 }
+function toggleIn(set: (v: string[] | ((p: string[]) => string[])) => void, id: string) {
+  set(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+}
+
 function usePersisted<T>(key: string, fallback: T): [T, (v: T | ((p: T) => T)) => void] {
   const [state, setState] = useState<T>(() => load(key, fallback))
   const set = useCallback((v: T | ((p: T) => T)) => {
     setState(prev => {
       const next = typeof v === 'function' ? (v as (p: T) => T)(prev) : v
-      try { localStorage.setItem(key, JSON.stringify(next)) } catch {}
+      try { localStorage.setItem(key, JSON.stringify(next)) } catch { /* storage unavailable */ }
       return next
     })
   }, [key])
@@ -173,13 +178,17 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeRaw] = useState<'system' | 'dark' | 'light'>(() => load('dd.theme', 'system'))
   const [signedIn, setSignedIn] = useState<boolean>(() => load('dd.signedIn', false))
 
-  const setLang = useCallback((l: Lang) => { setLangRaw(l); try { localStorage.setItem('dd.lang', JSON.stringify(l)) } catch {} }, [])
-  const setTheme = useCallback((t: any) => { setThemeRaw(t); try { localStorage.setItem('dd.theme', JSON.stringify(t)) } catch {} }, [])
+  const setLang = useCallback((l: Lang) => { setLangRaw(l); try { localStorage.setItem('dd.lang', JSON.stringify(l)) } catch { /* storage unavailable */ } }, [])
+  const setTheme = useCallback((t: Store['theme']) => { setThemeRaw(t); try { localStorage.setItem('dd.theme', JSON.stringify(t)) } catch { /* storage unavailable */ } }, [])
+
+  // the native app downloads/deletes chapter files to match this list
+  useEffect(() => { platform.syncDownloads(downloads) }, [downloads])
 
   const rtl = lang === 'ar' || lang === 'ckb'
   useEffect(() => {
     const dark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
     document.getElementById('dd-root')?.classList.toggle('dark', dark)
+    platform.setDarkMode(dark)
     const app = document.getElementById('dd-app')
     if (app) app.dir = rtl ? 'rtl' : 'ltr'
   }, [theme, rtl])
@@ -195,11 +204,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     engine.play(r, 36, 1, true)
   }, [])
 
-  const toggleIn = (set: (v: string[] | ((p: string[]) => string[])) => void, id: string) =>
-    set(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
-
   const t = useCallback((k: string) => STR[k]?.[lang] ?? STR[k]?.en ?? k, [lang])
-  const signIn = useCallback(() => { setSignedIn(true); try { localStorage.setItem('dd.signedIn', 'true') } catch {} }, [])
+  const signIn = useCallback(() => { setSignedIn(true); try { localStorage.setItem('dd.signedIn', 'true') } catch { /* storage unavailable */ } }, [])
 
   const value = useMemo<Store>(() => ({
     nav, setTab, push, pop, resetStack, sheet, setSheet, dialog, setDialog,
@@ -209,7 +215,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     downloads, toggleDownload: id => toggleIn(setDownloads, id),
     bookmarks, toggleBookmark: id => toggleIn(setBookmarks, id),
     streak, lang, setLang, theme, setTheme, signedIn, signIn, t, rtl,
-  }), [nav, sheet, dialog, player, ambient, favorites, follows, downloads, bookmarks, streak, lang, theme, signedIn, t, rtl, setTab, push, pop, resetStack, play, playDefault, setLang, setTheme, signIn])
+  }), [nav, sheet, dialog, player, ambient, favorites, follows, downloads, bookmarks, streak, lang, theme, signedIn, t, rtl, setTab, push, pop, resetStack, play, playDefault, setLang, setTheme, signIn, setFavorites, setFollows, setDownloads, setBookmarks])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

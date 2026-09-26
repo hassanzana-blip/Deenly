@@ -12,6 +12,7 @@ import SearchScreen, { LanguageSheet, ProfileSheet, SearchBookSheet, SignInSheet
 import { AllRecitersScreen, ReciterScreen } from './screens/Reciters'
 import { ReaderScreen } from './screens/Reader'
 import { RECITERS } from './lib/data'
+import { platform } from './lib/platform'
 
 function Screens() {
   const st = useStore()
@@ -49,7 +50,7 @@ function Screens() {
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 32, stiffness: 320 }}
           >
-            <StatusBar />
+            <StatusBar nested />
             <div className="flex-1 relative overflow-hidden">
               {top.t === 'reciters' && <AllRecitersScreen />}
               {top.t === 'reciter' && <ReciterScreen id={top.id} />}
@@ -124,7 +125,7 @@ export default function App() {
         {/* phone frame on larger screens, full-bleed on mobile */}
         <div
           id="dd-app"
-          className="relative dd-bg overflow-hidden flex flex-col w-full h-full sm:h-[min(880px,96vh)] sm:w-[402px] sm:rounded-[44px] sm:shadow-[0_40px_120px_rgba(0,0,0,0.6)] sm:border-[6px] sm:border-[#1c1917]"
+          className={`relative dd-bg overflow-hidden flex flex-col w-full h-full ${platform.native ? '' : 'sm:h-[min(880px,96vh)] sm:w-[402px] sm:rounded-[44px] sm:shadow-[0_40px_120px_rgba(0,0,0,0.6)] sm:border-[6px] sm:border-[#1c1917]'}`}
           dir="ltr"
         >
           <StatusBar />

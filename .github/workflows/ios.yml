@@ -1,0 +1,118 @@
+# Builds the iOS app on every push and runs it in the iPhone Simulator.
+# No Apple account or signing needed: it is a Release build for the simulator,
+# which bundles the JS exactly like an App Store build does. Screenshots of the
+# running app are attached to each run as the "ios-simulator" artifact.
+name: iOS build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npx tsc -b
+      - name: Lint
+        run: npm run lint
+      - name: Web build
+        run: npx vite build
+      - name: iOS JS bundle
+        run: npx expo export --platform ios --output-dir /tmp/ios-export
+
+  simulator:
+    runs-on: macos-15
+    timeout-minutes: 75
+    env:
+      APP_NAME: DeenDunya
+      BUNDLE_ID: com.hassanzana.deendunya
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Select newest stable Xcode
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_[0-9]*.app | grep -vi beta | sort -V | tail -1)
+          sudo xcode-select -s "$XCODE/Contents/Developer"
+          xcodebuild -version
+
+      - run: npm ci
+
+      - name: Generate native iOS project
+        run: npx expo prebuild --platform ios --no-install
+
+      - name: Install pods
+        working-directory: ios
+        run: pod install
+
+      - name: Build (Release, simulator)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -workspace "$APP_NAME.xcworkspace" \
+            -scheme "$APP_NAME" \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tail -200
+
+      - name: Run in simulator and take screenshots
+        run: |
+          APP=ios/build/Build/Products/Release-iphonesimulator/$APP_NAME.app
+          test -d "$APP"
+          UDID=$(xcrun simctl list devices available -j | python3 -c "
+          import json, sys
+          devs = json.load(sys.stdin)['devices']
+          best = None
+          for runtime, items in devs.items():
+              if 'iOS' not in runtime: continue
+              for d in items:
+                  if d['name'].startswith('iPhone') and 'Pro' in d['name'] and 'Max' not in d['name']:
+                      best = d['udid']
+          print(best or next(d['udid'] for r, i in devs.items() if 'iOS' in r for d in i if d['name'].startswith('iPhone')))
+          ")
+          echo "Simulator: $UDID"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl privacy "$UDID" grant location "$BUNDLE_ID" || true
+          xcrun simctl location "$UDID" set 59.9139,10.7522 || true
+          mkdir -p shots
+          xcrun simctl spawn "$UDID" log stream --level info --predicate "process == \"$APP_NAME\"" > shots/app.log 2>&1 &
+          xcrun simctl launch "$UDID" "$BUNDLE_ID"
+          sleep 6;  xcrun simctl io "$UDID" screenshot shots/1-launch.png
+          sleep 14; xcrun simctl io "$UDID" screenshot shots/2-home.png
+          sleep 20; xcrun simctl io "$UDID" screenshot shots/3-home-40s.png
+          # still running?
+          xcrun simctl spawn "$UDID" launchctl list | grep -i "$BUNDLE_ID" && echo "APP_RUNNING=yes" || echo "APP_RUNNING=no"
+          # small inline copy of the main screenshot, so it can be read from the log
+          sips -Z 560 -s format jpeg -s formatOptions 60 shots/2-home.png --out shots/home-small.jpg >/dev/null
+          echo "---SCREENSHOT-BASE64-BEGIN---"; base64 -i shots/home-small.jpg; echo "---SCREENSHOT-BASE64-END---"
+          echo "--- app log (errors/warnings) ---"
+          grep -iE "error|exception|warn|fatal" shots/app.log | head -80 || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-simulator
+          path: shots/
+          if-no-files-found: ignore

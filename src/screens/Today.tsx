@@ -3,17 +3,19 @@ import { useEffect, useMemo, useState } from 'react'
 import { CalendarDays, ChevronRight, MoonStar, Play, Radio, User } from 'lucide-react'
 import { CalculationMethod, Coordinates, PrayerTimes } from 'adhan'
 import { getSurahText, HADITH_OF_DAY, hijriToday, surah, VERSes_OF_DAY } from '../lib/data'
+import { IMG } from '../lib/images'
+import { platform } from '../lib/platform'
 import { useStore } from '../store'
 import { SectionHeader, Segmented } from '../components/bits'
 import { engine } from '../lib/audio'
 
 export default function TodayScreen() {
   const st = useStore()
-  const dayIdx = Math.floor(Date.now() / 86400000)
+  const [dayIdx] = useState(() => Math.floor(Date.now() / 86400000))
   const vod = VERSes_OF_DAY[dayIdx % VERSes_OF_DAY.length]
   const hod = HADITH_OF_DAY[dayIdx % HADITH_OF_DAY.length]
   const [verse, setVerse] = useState<{ u: string; e: string } | null>(null)
-  useEffect(() => { getSurahText(vod.surah).then(t => { const a = t.ayahs[vod.ayah - 1]; if (a) setVerse({ u: a.u, e: a.e }) }) }, [vod])
+  useEffect(() => { getSurahText(vod.surah).then(t => { const a = t.ayahs[vod.ayah - 1]; if (a) setVerse({ u: a.u, e: a.e }) }, () => {}) }, [vod])
 
   return (
     <div className="h-full overflow-y-auto no-scrollbar pb-44">
@@ -44,7 +46,7 @@ export default function TodayScreen() {
         <button
           onClick={() => {}}
           className="shrink-0 w-[230px] h-[150px] rounded-[22px] p-4 text-start relative overflow-hidden active:scale-[0.98] transition-transform bg-cover bg-center"
-          style={{ backgroundImage: 'url(/img/tile.png)' }}
+          style={{ backgroundImage: `url(${IMG.tile})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-black/10" />
           <div className="relative font-display text-[21px] font-bold text-white leading-tight">{st.t('hadithOfDay')}</div>
@@ -60,7 +62,7 @@ export default function TodayScreen() {
       <SectionHeader title={st.t('liveTV')} />
       <p className="px-5 -mt-2 text-[13.5px] dd-ink-2 leading-snug">{st.t('liveTVSub')}</p>
       <div className="flex gap-3.5 overflow-x-auto no-scrollbar px-5 pt-4">
-        <TVCard img="/img/madinah.png" title="Madinah Live HD" href="https://www.youtube.com/results?search_query=madinah+live" />
+        <TVCard img={IMG.madinah} title="Madinah Live HD" href="https://www.youtube.com/results?search_query=madinah+live" />
         <TVCard title="Makkah Live HD" href="https://www.youtube.com/results?search_query=makkah+live" kaaba />
         <TVCard title="Quran Kareem TV" href="https://www.youtube.com/results?search_query=quran+tv+live" gold />
       </div>
@@ -84,12 +86,10 @@ function PrayerCard() {
   const [coords, setCoords] = useState<Coordinates>(new Coordinates(59.9139, 10.7522)) // Oslo fallback
   const [now, setNow] = useState(new Date())
   useEffect(() => {
-    navigator.geolocation?.getCurrentPosition(
-      p => setCoords(new Coordinates(p.coords.latitude, p.coords.longitude)),
-      () => {}, { timeout: 6000 }
-    )
+    let alive = true
+    platform.getPosition().then(p => { if (alive && p) setCoords(new Coordinates(p.latitude, p.longitude)) })
     const id = setInterval(() => setNow(new Date()), 30000)
-    return () => clearInterval(id)
+    return () => { alive = false; clearInterval(id) }
   }, [])
   const { next, nextTime, times } = useMemo(() => {
     const pt = new PrayerTimes(coords, now, CalculationMethod.MuslimWorldLeague())
@@ -126,14 +126,14 @@ function PrayerCard() {
 
 function TVCard({ img, title, href, kaaba = false, gold = false }: { img?: string; title: string; href: string; kaaba?: boolean; gold?: boolean }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer" className="shrink-0 w-[190px] h-[120px] rounded-[20px] relative overflow-hidden active:scale-[0.98] transition-transform block"
+    <button onClick={() => platform.openUrl(href)} className="shrink-0 w-[190px] h-[120px] rounded-[20px] relative overflow-hidden active:scale-[0.98] transition-transform block text-start"
       style={img ? { backgroundImage: `url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: gold ? 'linear-gradient(140deg,#e8d9a8,#c9a94f)' : 'linear-gradient(140deg,#f0ead8,#cbbf95)' }}>
       {kaaba && <svg viewBox="0 0 100 100" className="absolute inset-0 m-auto w-16 h-16 opacity-80"><rect x="30" y="35" width="40" height="34" rx="2" fill="#1a1a1a"/><rect x="30" y="41" width="40" height="6" fill="#c9a94f"/><circle cx="50" cy="24" r="9" fill="none" stroke="#c9a94f" strokeWidth="4"/></svg>}
       {gold && <svg viewBox="0 0 100 100" className="absolute inset-0 m-auto w-16 h-16 opacity-80"><path d="M50 15l8 22h23l-18 14 7 23-20-14-20 14 7-23-18-14h23z" fill="#8a6d1f"/></svg>}
       <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
       <div className="absolute bottom-2.5 start-3 text-white text-[13.5px] font-bold drop-shadow">{title}</div>
       <span className="absolute bottom-2.5 end-3 w-8 h-8 rounded-full bg-white/90 text-black flex items-center justify-center"><Play size={13} fill="currentColor" className="ms-0.5" /></span>
-    </a>
+    </button>
   )
 }
 
@@ -143,17 +143,14 @@ const RADIOS = [
   { name: 'Radio Quran — Abdul Basit', url: 'https://backup.qurango.net/radio/abdulbasit_abdulsamad_murattal' },
   { name: 'Beautiful recitations', url: 'https://backup.qurango.net/radio/maher_al_meaqli' },
 ]
-let radioEl: HTMLAudioElement | null = null
 function RadioRows() {
   const [active, setActive] = useState<number | null>(null)
   const playRadio = (i: number) => {
-    if (active === i) { radioEl?.pause(); setActive(null); return }
-    if (!radioEl) radioEl = new Audio()
-    engine.toggle // pause quran if playing
-    radioEl.src = RADIOS[i].url
-    radioEl.play().then(() => setActive(i)).catch(() => setActive(null))
+    if (active === i) { platform.radioStop(); setActive(null); return }
+    engine.pause() // radio and recitation never play over each other
+    platform.radioPlay(RADIOS[i].url).then(ok => setActive(ok ? i : null))
   }
-  useEffect(() => () => { radioEl?.pause() }, [])
+  useEffect(() => () => { platform.radioStop() }, [])
   return (
     <div className="px-5 pt-4 flex flex-col">
       {RADIOS.map((r, i) => (

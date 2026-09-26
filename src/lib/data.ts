@@ -5,6 +5,8 @@ import surahsJson from '../data/surahs.json'
 import juzsJson from '../data/juzs.json'
 import recitersJson from '../data/reciters.json'
 import qdcPrefix from '../data/qdc_prefix.json'
+import { BUNDLED_TIMINGS } from '../data/timings'
+import { IMG } from './images'
 
 import q1 from '../data/quran/1.json'
 import q2 from '../data/quran/2.json'
@@ -47,35 +49,49 @@ export function getSurahText(n: number): Promise<SurahText> {
       ])
       // remove HTML tags, then the footnote digits the <sup> markers leave behind
       const strip = (s: string) => s.replace(/<[^>]+>/g, '').replace(/(?<=[A-Za-zÀ-ž.,)"”])\d{1,2}(?=\s|$)/g, '')
-      const ayahs: Ayah[] = u.verses.map((v: any, i: number) => ({
+      const ayahs: Ayah[] = (u.verses as { verse_key: string; text_uthmani: string }[]).map((v, i) => ({
         k: v.verse_key, u: v.text_uthmani,
         e: t.translations[i] ? strip(t.translations[i].text) : '',
         t: tr.translations[i] ? tr.translations[i].text : '',
       }))
       return { surah: n, ayahs }
     })())
+    // don't keep a failed load (e.g. offline) — retry on the next request
+    textCache.get(n)!.catch(() => textCache.delete(n))
   }
   return textCache.get(n)!
 }
 
 // ── timings (per-reciter, per-surah) ─────────────────────────────────────────
-const timingLoaders: Record<string, () => Promise<any>> = import.meta.glob('../data/timings/*.json')
+// Lookup order: timings saved with an offline download → bundled JSON → api.quran.com.
+const localTimings = new Map<string, Timings>()
+/** Registers timings stored next to a downloaded chapter file (native app). */
+export function registerLocalTimings(qdc: number, surah: number, t: Timings) {
+  localTimings.set(`${qdc}_${surah}`, t)
+  timingCache.delete(`${qdc}_${surah}`)
+}
 const timingCache = new Map<string, Promise<Timings | null>>()
 export function getTimings(qdc: number, surah: number): Promise<Timings | null> {
   const key = `${qdc}_${surah}`
   if (!timingCache.has(key)) {
-    const local = timingLoaders[`../data/timings/${key}.json`]
-    if (local) {
-      timingCache.set(key, local().then(m => (m.default ?? m) as Timings))
+    const saved = localTimings.get(key)
+    const bundled = BUNDLED_TIMINGS[key]
+    if (saved) {
+      timingCache.set(key, Promise.resolve(saved))
+    } else if (bundled) {
+      timingCache.set(key, bundled().then(m => ((m as { default?: unknown }).default ?? m) as Timings))
     } else {
-      timingCache.set(key, fetch(`https://api.quran.com/api/v4/chapter_recitations/${qdc}/${surah}?segments=true`, { headers: { 'User-Agent': 'DeenDunya/1.0' } })
+      const req = fetch(`https://api.quran.com/api/v4/chapter_recitations/${qdc}/${surah}?segments=true`, { headers: { 'User-Agent': 'DeenDunya/1.0' } })
         .then(r => r.json())
         .then(d => {
           const f = d.audio_file
           if (!f?.timestamps?.length) return null
-          return { total: f.timestamps[f.timestamps.length - 1].timestamp_to, url: f.audio_url, ayahs: f.timestamps.map((x: any) => ({ k: x.verse_key, f: x.timestamp_from, t: x.timestamp_to })) } as Timings
+          return { total: f.timestamps[f.timestamps.length - 1].timestamp_to, url: f.audio_url, ayahs: (f.timestamps as { verse_key: string; timestamp_from: number; timestamp_to: number }[]).map(x => ({ k: x.verse_key, f: x.timestamp_from, t: x.timestamp_to })) } as Timings
         })
-        .catch(() => null))
+        .catch(() => null)
+      // don't cache a failed lookup, so it is retried once the network is back
+      req.then(t => { if (!t) timingCache.delete(key) })
+      timingCache.set(key, req)
     }
   }
   return timingCache.get(key)!
@@ -136,9 +152,9 @@ export const HADITH_OF_DAY = [
 ]
 
 export const AMBIENTS = [
-  { id: 'birds', label: 'Birds', img: '/img/birds.png' },
-  { id: 'fire', label: 'Fire', img: '/img/fire.png' },
-  { id: 'rain', label: 'Rain', img: '/img/rain.png' },
-  { id: 'waves', label: 'Waves', img: '/img/waves.png' },
+  { id: 'birds', label: 'Birds', img: IMG.birds },
+  { id: 'fire', label: 'Fire', img: IMG.fire },
+  { id: 'rain', label: 'Rain', img: IMG.rain },
+  { id: 'waves', label: 'Waves', img: IMG.waves },
 ] as const
 export type AmbientId = typeof AMBIENTS[number]['id']

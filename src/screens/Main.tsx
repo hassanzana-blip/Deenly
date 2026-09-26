@@ -5,6 +5,7 @@ import { engine } from '../lib/audio'
 import { hijriToday, juzOfSurah, RECITERS, surah } from '../lib/data'
 import { useStore } from '../store'
 import { Avatar, DownloadBtn, SectionHeader } from '../components/bits'
+import { platform } from '../lib/platform'
 
 export default function MainScreen() {
   const st = useStore()
@@ -70,12 +71,14 @@ export default function MainScreen() {
         </button>
       </div>
 
-      {/* playlists */}
-      <SectionHeader title={t('playlists')} onMore={() => st.setDialog('signinRequired')} />
-      <div className="px-5 flex flex-col gap-3">
-        <PlaylistCard title="Duaa" count={15} onClick={() => st.setDialog('signinRequired')} />
-        <PlaylistCard title="Morning Adhkar" count={12} onClick={() => st.setDialog('signinRequired')} dark />
-      </div>
+      {/* playlists — placeholders behind a sign-in that has no backend yet, so hidden in the iOS build */}
+      {!platform.native && <>
+        <SectionHeader title={t('playlists')} onMore={() => st.setDialog('signinRequired')} />
+        <div className="px-5 flex flex-col gap-3">
+          <PlaylistCard title="Duaa" count={15} onClick={() => st.setDialog('signinRequired')} />
+          <PlaylistCard title="Morning Adhkar" count={12} onClick={() => st.setDialog('signinRequired')} dark />
+        </div>
+      </>}
 
       {/* prayer promo (DeenDunya adaptation) */}
       <div className="px-5 pt-5">
@@ -142,7 +145,7 @@ export default function MainScreen() {
         <h3 className="font-display text-[23px] font-bold dd-ink mt-4 leading-tight">{t('shareApp')}</h3>
         <p className="text-[13.5px] dd-ink-2 mt-1.5 max-w-[280px] mx-auto">{t('shareSub')}</p>
         <button
-          onClick={() => navigator.share?.({ title: 'DeenDunya', text: t('shareSub') }).catch(() => {})}
+          onClick={() => platform.share({ title: 'DeenDunya', text: t('shareSub') })}
           className="mt-4 px-9 py-2.5 rounded-full text-white text-[15px] font-bold active:scale-95 transition-transform"
           style={{ background: 'linear-gradient(135deg,#3b82c4,#1d4e89)' }}
         >

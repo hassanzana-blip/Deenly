@@ -1,0 +1,33 @@
+# Builds a signed App Store build with EAS and submits it to TestFlight.
+# One-time setup (see README): create an Expo account, run `npx eas-cli init` and
+# `npx eas-cli build -p ios` once locally to set up Apple credentials, then add an
+# EXPO_TOKEN repository secret. After that, run this workflow from the Actions tab.
+name: iOS release (EAS → TestFlight)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for EXPO_TOKEN
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::error::Add an EXPO_TOKEN repository secret first (see README → Release to the App Store)."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Build and submit
+        run: eas build --platform ios --profile production --non-interactive --no-wait --auto-submit

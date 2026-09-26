@@ -5,6 +5,7 @@ import { engine } from '../lib/audio'
 import { RECITERS, SURAHS } from '../lib/data'
 import { useStore } from '../store'
 import { Avatar, CircleBtn, DownloadBtn, EqBars, MenuItem, Popover, Sheet } from '../components/bits'
+import { platform } from '../lib/platform'
 
 export function AllRecitersScreen() {
   const st = useStore()
@@ -111,7 +112,7 @@ export function ReciterScreen({ id }: { id: string }) {
         <MenuItem icon={<Heart size={18} fill={fav ? 'currentColor' : 'none'} />} label={fav ? st.t('removeFavorite') : st.t('addFavorite')} onClick={() => { st.toggleFavorite(reciter.id); setMenu(false) }} />
         <MenuItem icon={<Link2 size={18} />} label={fol ? st.t('following') : st.t('followReciter')} onClick={() => { st.toggleFollow(reciter.id); setMenu(false) }} />
         <MenuItem icon={<Download size={18} />} label={st.t('downloadManager')} onClick={() => { setMenu(false); st.setSheet('profile') }} />
-        <MenuItem icon={<Share2 size={18} />} label={st.t('share')} onClick={() => { setMenu(false); navigator.share?.({ title: reciter.name, text: `Listen to ${reciter.name} on DeenDunya` }).catch(() => {}) }} />
+        <MenuItem icon={<Share2 size={18} />} label={st.t('share')} onClick={() => { setMenu(false); platform.share({ title: reciter.name, text: `Listen to ${reciter.name} on DeenDunya` }) }} />
       </Popover>
 
       {/* about sheet */}

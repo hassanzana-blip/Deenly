@@ -28,7 +28,7 @@ export function ReaderScreen({ surah: n, ayah: initialAyah }: { surah: number; a
   const scrollRef = useRef<HTMLDivElement>(null)
   const ayahRefs = useRef<Record<number, HTMLDivElement | null>>({})
 
-  useEffect(() => { setText(null); getSurahText(n).then(setText) }, [n])
+  useEffect(() => { setText(null); getSurahText(n).then(setText, () => { /* offline: retried when reopened */ }) }, [n])
 
   const synced = st.player.surah === n && st.player.mode === 'sync' && st.player.reciter
   const activeAyah = synced ? st.player.ayah : currentAyah
@@ -125,7 +125,7 @@ export function ReaderScreen({ surah: n, ayah: initialAyah }: { surah: number; a
       </div>
 
       {/* bottom card + toolbar */}
-      <div className="absolute inset-x-3 bottom-[max(12px,env(safe-area-inset-bottom))] z-30">
+      <div className="absolute inset-x-3 bottom-[max(12px,var(--sab))] z-30">
         {readMode ? <ReadProgressCard ayah={currentAyah} total={meta.ayahs} /> : <PlayerCard compact />}
         <div className="dd-surface rounded-full mt-2 shadow-[0_8px_24px_rgba(0,0,0,0.10)] border dd-line flex items-center justify-around py-1.5">
           <ToolbarBtn onClick={() => st.setSheet('searchBook')} label="search"><Search size={19} /></ToolbarBtn>

@@ -8,6 +8,7 @@ import { surah } from '../lib/data'
 import { useStore } from '../store'
 import { Avatar, MenuItem, Popover } from './bits'
 import { fmtTime, Slider } from './chrome'
+import { platform } from '../lib/platform'
 
 export function PlayerTransport({ dark = false }: { dark?: boolean }) {
   const { player } = useStore()
@@ -65,7 +66,7 @@ export function PlayerTransport({ dark = false }: { dark?: boolean }) {
           onClick={() => engine.setRepeat(player.repeat === 'off' ? 'one' : player.repeat === 'one' ? 'all' : 'off')}
         />
         <MenuItem icon={<Timer size={18} />} label="Timer" sub="Sleep timer" onClick={() => setMenu(false)} />
-        <MenuItem icon={<Share2 size={18} />} label="Share" onClick={() => { setMenu(false); navigator.share?.({ title: 'DeenDunya', text: 'Listen to the Quran on DeenDunya' }).catch(() => {}) }} />
+        <MenuItem icon={<Share2 size={18} />} label="Share" onClick={() => { setMenu(false); platform.share({ title: 'DeenDunya', text: 'Listen to the Quran on DeenDunya' }) }} />
       </Popover>
       <Popover open={route} onClose={() => setRoute(false)} anchor="br" width={240}>
         <MenuItem icon={<Check size={18} />} label="This device" onClick={() => setRoute(false)} />

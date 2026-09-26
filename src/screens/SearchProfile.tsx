@@ -5,6 +5,7 @@ import { RECITERS, SURAHS } from '../lib/data'
 import { useStore, type Lang } from '../store'
 import { Avatar, Segmented, Sheet } from '../components/bits'
 import { SurahRow } from './Read'
+import { platform } from '../lib/platform'
 
 export default function SearchScreen() {
   const st = useStore()
@@ -69,7 +70,8 @@ export function ProfileSheet() {
             <span className="block text-[16px] font-bold dd-ink">{st.signedIn ? 'DeenDunya Member' : st.t('guest')}</span>
             <span className="block text-[12.5px] dd-ink-2">{st.t('syncData')}</span>
           </span>
-          {!st.signedIn && (
+          {/* accounts have no backend yet — the iOS build must not show a sign-in that does nothing */}
+          {!st.signedIn && !platform.native && (
             <button onClick={() => st.setSheet('signin')} className="px-4 py-2 rounded-full text-white text-[13.5px] font-bold active:scale-95 transition-transform" style={{ background: 'linear-gradient(135deg,#3b82c4,#1d4e89)' }}>{st.t('signIn')}</button>
           )}
         </div>
