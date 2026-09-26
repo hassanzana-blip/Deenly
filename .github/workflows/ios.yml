@@ -64,8 +64,8 @@ jobs:
       - name: Build (Release, simulator)
         working-directory: ios
         run: |
-          set -o pipefail
-          xcodebuild \
+          mkdir -p ../shots
+          if ! xcodebuild \
             -workspace "$APP_NAME.xcworkspace" \
             -scheme "$APP_NAME" \
             -configuration Release \
@@ -73,7 +73,14 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            build | tail -200
+            build > ../shots/xcodebuild.log 2>&1; then
+            echo "::group::errors"
+            grep -nE "error:|error [A-Z]|fatal|\[ExpoModulesJSI\]|failed|FAILED" ../shots/xcodebuild.log | grep -v "export " | head -150
+            echo "::endgroup::"
+            tail -60 ../shots/xcodebuild.log
+            exit 1
+          fi
+          tail -5 ../shots/xcodebuild.log
 
       - name: Run in simulator and take screenshots
         run: |
