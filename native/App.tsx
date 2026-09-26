@@ -51,7 +51,8 @@ function Host() {
 
   return (
     <>
-      <StatusBar style={dark ? 'light' : 'dark'} />
+      {/* no clock/battery row: the UI runs full screen (the Dynamic Island / notch area stays reserved via insets) */}
+      <StatusBar hidden style={dark ? 'light' : 'dark'} />
       <DomRoot
         dom={{
           style: { flex: 1, backgroundColor: dark ? BG.dark : BG.light },

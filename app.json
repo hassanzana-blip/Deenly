@@ -17,7 +17,13 @@
       },
       "infoPlist": {
         "CFBundleDevelopmentRegion": "nb",
-        "CFBundleLocalizations": ["nb", "en", "ar", "ckb"]
+        "CFBundleLocalizations": [
+          "nb",
+          "en",
+          "ar",
+          "ckb"
+        ],
+        "UIStatusBarHidden": true
       }
     },
     "web": {
